@@ -1,7 +1,8 @@
 # Backpropagation
 This Programm use the Backpropagation Algorithm to identify handwritten Numbers
 
-The Neural Network use the Gray-Values of an images as Input-Vector. 
+The Neural Network use the Gray-Values of an images as Input-Vector. The Input-Vector goes forward through all Layers. The ouput is also a one-dimensional vector.
+
 
 # Converting the Pictures
 
