@@ -9,9 +9,8 @@ It is intended to show the User how likely his handwritten Nummber is a one or a
 All Pictures are safed in the files: Bilder and TestBilder. The Images in the "Bilder" file are for Training. The other Images in "TestBilder" are the User Input.
 The main Goal is to implement the MNIST database or Iris Data Set.
 
-The Programm (class = PictureAnalyse) convert the Image in an one-dimensional Array 
-with all Gray-Values of each Pixel.
-The Gray Value = 0.299 * Red + 0.587 * Green + 0.114 * Blue of one Pixel. Red,Green and Blue are Numbers between 0 and 255. For the Network will the Gray Value be divided by 255 to have a number between 1 and 0. All png-files are stored in this way that the first Number over there Names is the Value of that written Nummber. 
+The Programm (class = PictureAnalyse) convert the Image in an one-dimensional Array with all Gray-Values of each Pixel.
+The Gray Value = 0.299 * Red + 0.587 * Green + 0.114 * Blue of one Pixel. Red,Green and Blue are Numbers between 0 and 255. For the Network will the Gray Value be divided by 255 to have a number between 1 and 0. All png-files are stored in this way that the first Number over there Names is the Value of that written Nummber. This Values are stored in an   2 dimensional Array in that way that 1 is equal to (1.0,0.0) and 2 is equal to (0.0,1.0)
 
 # How the Neural Network works
 
