@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 */
 
 public class PictureAnalyse {
-	static int Height = 25;
-	static int Wide = 25;
+	static int Height = 28;
+	static int Wide = 28;
 	public double[][] Grayvalues;
 	public static int[] fileNumber;
 	public double[][] fileVektorNumber;
@@ -46,7 +46,7 @@ public class PictureAnalyse {
 				int j = 0;
 				for(int x=0;x<Height;x++) {
 					for(int y=0;y<Wide;y++) {
-						Color c = new Color(img.getRGB(x,y));
+						Color c = new Color(img.getRGB(y,x));
 						Grayvalues[i][j] = (0.299 * c.getRed() + 0.587 * c.getGreen() + 0.114 * c.getBlue())/255.0; 	//Calculating The GrayValues = 0.299 * Red + 0.587 * Green + 0.114 * Blue
 						j++;
 					}

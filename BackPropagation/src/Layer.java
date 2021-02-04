@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Random;
 
 /*
 	This class represents one Layer of the neural Network. Each Layer has an Input and an Output. Also a Matrix of all Weights(=W)
@@ -23,26 +24,30 @@ public class Layer extends Berechnungen{
 	public double[] DeltaV;
 	public String Name = null;
 	
-	public Layer(int NumberOfb,int NumberOfx,String Name){
+	public Layer(int NumberOfLayerbefor,int NumberOfnextLayer,String Name){
 		this.Name  = Name;
-		InitialW(NumberOfb,NumberOfx+1);
+		InitialW(NumberOfLayerbefor,NumberOfnextLayer);
 		Weightchange = new double[W.length][W[0].length];
 	}
 	
 	public void SetStartx(double[] x) {
-		double[] StartValue = new double[x.length+1];
+		this.x = x;
+		/*double[] StartValue = new double[x.length+1];
 		StartValue[0] = 1.0;										//Initialising the Bias
 		for(int i=0;i<x.length;i++) {
 			StartValue[i+1] = x[i];
 		}
-		this.x = StartValue;
+		this.x = StartValue;*/
 	}
 	
 	private void InitialW(int x,int y) {
+		Random r = new Random();
+		double rangeMax = 1.0/Math.sqrt(x);
+		double rangeMin = -rangeMax;
 		W = new double[x][y];
 		for(int i=0;i<W.length;i++) {
 			for(int j=0;j<W[0].length;j++) {
-				W[i][j] = 1.0;
+				W[i][j] = rangeMin + (rangeMax - rangeMin) * r.nextDouble();;
 			}
 		}
 	} 	 	
@@ -57,17 +62,14 @@ public class Layer extends Berechnungen{
 	
 	public void Delta(double[] DeltaThePre_Layer,double[][] Weightsoftheprelayer) {
 		Ableitung();
-		if(DeltaV == null) {
-			DeltaV = new double[Y_Derivation_Output.length];
-			Arrays.fill(DeltaV,0); 
-		}
+		DeltaV = new double[Y_Derivation_Output.length];
 		
 		for(int m=0;m<Y_Derivation_Output.length;m++) {
 			double sum = 0;
 			for(int n=0;n<DeltaThePre_Layer.length;n++) {
 				sum += Weightsoftheprelayer[n][m] * DeltaThePre_Layer[n];
 			}
-			DeltaV[m] += Y_Derivation_Output[m] * sum;
+			DeltaV[m] = Y_Derivation_Output[m] * sum;
 		}
 	}
 	
@@ -79,6 +81,11 @@ public class Layer extends Berechnungen{
 			Weightchange = Matrixmultiplication(DeltaV,Y_Der_Vorschicht,alpha);
 		}
 		
+	}
+	
+	public void WeightChange(double alpha,double[] Y_Der_Vorschicht) {
+			Weightchange = Matrixmultiplication(DeltaV,Y_Der_Vorschicht,alpha);
+			W = MatrixSubtraktion(W,Weightchange);
 	}
 	
 	public void AddingtheAvarage(int Numberoftrainingsamples) {
